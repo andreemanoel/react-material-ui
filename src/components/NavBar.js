@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -240,
+    marginLeft: 0,
   },
 
   contentShift: {
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+    marginLeft: 240,
   },
 }));
 const NavBar = (props) => {
@@ -87,9 +87,7 @@ const NavBar = (props) => {
           [classes.contentShift]: open,
         })}
       >
-          <div className="content" id="content">
-              {props.children}
-          </div>
+        {props.children}
       </main>
 
     </div>

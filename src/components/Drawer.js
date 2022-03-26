@@ -1,6 +1,5 @@
 import { Avatar, Divider, Drawer, IconButton, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
 import { AddBox, Person } from '@material-ui/icons';
-import Image from 'mui-image'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import React from 'react';
 
@@ -8,6 +7,9 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
+    width: drawerWidth,
+  },
+  drawerPaper: {
     width: drawerWidth,
   },
 }));
@@ -20,6 +22,9 @@ const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
       anchor='left'
       variant="persistent"
       open={open}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
     >
       <div className={classes.drawer}>
         <IconButton onClick={handleDrawerClose}>

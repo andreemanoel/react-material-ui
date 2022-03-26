@@ -9,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useAppSelector } from '../../store/hooks';
+import { Typography } from '@material-ui/core';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170 },
@@ -36,7 +37,11 @@ export default function StickyHeadTable() {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop: 10 }} >
+    <>
+    <Typography variant="h3" align='left'>
+      Funcionários
+    </Typography>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -88,5 +93,6 @@ export default function StickyHeadTable() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    </>
   );
 }
