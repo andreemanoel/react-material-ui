@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, IconButton, makeStyles, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import DrawerNavigation from './Drawer';
 import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   appBarShift: {
@@ -74,14 +75,16 @@ const NavBar = (props) => {
             color="inherit"
             aria-label="open drawer"
             edge="start"
+            size='large'
             onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             MMTech
           </Typography>
+          <Button color="inherit" >Sair</Button>
         </Toolbar>
       </AppBar>
 

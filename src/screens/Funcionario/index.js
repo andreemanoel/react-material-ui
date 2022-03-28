@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { setDialog } from '../../store/slice/application.slice';
 import MTableHeader from '../../components/MTableHeader';
 import MTableBody from '../../components/MTableBody';
@@ -27,13 +27,15 @@ const TableFuncionarios = () => {
   }
 
   return (
-    <>
-    <Paper sx={{ width: '100%', overflow: 'hidden' }} >
-      <Typography style={{ fontWeight: 600 }} variant="h4" align='left'>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <Typography 
+        style={{ fontWeight: 600 }}
+        variant="h4"
+        align='left'
+        sx={{m: 1}}
+      >
         Funcionários
       </Typography>
-    </Paper>
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 540 }}>
         <Table stickyHeader aria-label="sticky table">
           <MTableHeader columns={columns}/>
@@ -41,7 +43,6 @@ const TableFuncionarios = () => {
         </Table>
       </TableContainer>
     </Paper>
-    </>
   );
 }
 

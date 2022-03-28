@@ -6,7 +6,7 @@ import Formulario from '../screens/Formulario';
 import Funcionario from '../screens/Funcionario';
 import { useAppDispatch } from '../store/hooks';
 import fetchFuncionario from '../store/thunks/funcionario.thunk'
-// import Home from '../screens/Home';
+import Home from '../screens/Home';
 
 const Routes = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +20,7 @@ const Routes = () => {
       <Router >
         <NavBar>
           <Switch>
+            <Route path='/' exact component={Home} />
             <Route path='/funcionarios' exact component={Funcionario} />
             <Route path='/adicionar' component={Formulario} />
           </Switch>

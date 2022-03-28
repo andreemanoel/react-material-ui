@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Button, Paper, Typography } from '@mui/material';
 import { useAppDispatch } from '../../store/hooks';
 import { enviarFunc } from '../../store/thunks/funcionario.thunk';
 import Alerts from '../../components/Alerts'
@@ -43,10 +43,22 @@ const Formulario = () => {
       setTimeout(() => {
         setOpen(false);
       }, 3000);
+      setNome('');
+      setEmail('');
+      setTelefone('');
+      setData('');
     }
   }
   return (
-    <>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }} >
+      <Typography
+        style={{ fontWeight: 600 }}
+        variant="h4"
+        align='left'
+        sx={{m: 1}}
+      >
+        Novo funcionário
+      </Typography>
       <Box
         component="form"
         noValidate
@@ -103,7 +115,7 @@ const Formulario = () => {
         </Button>
       </div>
       <Alerts message="Cliente cadastrado com sucesso!" open={open} setOpen={setOpen}/>
-    </>
+    </Paper>
   );
 }
 

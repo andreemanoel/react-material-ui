@@ -1,5 +1,5 @@
 import { Avatar, Divider, Drawer, IconButton, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core';
-import { AddBox, Person } from '@material-ui/icons';
+import { AddBox, Home, Person } from '@material-ui/icons';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import React from 'react';
 
@@ -52,6 +52,10 @@ const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
           />
         </div>
         <Divider />
+        <ListItem button key="Funcionários" onClick={() => navigation.push('/')}>
+          <ListItemIcon><Home /></ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
         <ListItem button key="Funcionários" onClick={() => {navigation.push('/funcionarios'); window.location.reload();}}>
           <ListItemIcon><Person /></ListItemIcon>
           <ListItemText primary="Funcionários" />

@@ -6,9 +6,12 @@ const fetchFuncionario = createAsyncThunk(
   'funcionario/fetchFunc',
   async (_, { dispatch }) => {
     const { data } = await instance.get('/funcionario');
-    dispatch(
-      setFuncionarios(data),
-    );
+    
+    if(data){
+      dispatch(
+        setFuncionarios(data),
+      );
+    }
   },
 );
 
