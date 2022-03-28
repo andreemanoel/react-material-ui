@@ -8,24 +8,28 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { useAppSelector } from '../../store/hooks';
-import { Typography } from '@material-ui/core';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { IconButton, Typography } from '@material-ui/core';
+import BorderColor from '@material-ui/icons/BorderColor';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import { setDialog } from '../../store/slice/application.slice';
 
 const columns = [
-  { id: 'id', label: 'ID', minWidth: 170 },
-  { id: 'nome', label: 'Nome', minWidth: 170 },
-  { id: 'email', label: 'Email', minWidth: 170 },
-  { id: 'telefone', label: 'Telefone', minWidth: 170 },
-  { id: 'data_nascimento', label: 'Data nascimento', minWidth: 170 }
+  { id: 'id', label: 'ID', minWidth: 170, align: 'center' },
+  { id: 'nome', label: 'Nome', minWidth: 170, align: 'center' },
+  { id: 'email', label: 'Email', minWidth: 170, align: 'center' },
+  { id: 'telefone', label: 'Telefone', minWidth: 170, align: 'center' },
+  { id: 'data_nascimento', label: 'Data nascimento', minWidth: 170, align: 'center' },
+  { id: 'opcoes', label: 'Opções', minWidth: 170, align: 'center' }
 ];
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const {funcionarios} = useAppSelector(state => state.funcionario);
 
-  console.log(funcionarios);
+  const dispatch = useAppDispatch();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,9 +40,13 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  const handleDelete = (id) => {
+    dispatch(setDialog({visible: true, title: 'Deseja realmente excluir?', id:id}));
+  }
+
   return (
     <>
-    <Typography variant="h3" align='left'>
+    <Typography style={{ fontWeight: 600 }} variant="h4" align='left'>
       Funcionários
     </Typography>
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -59,23 +67,31 @@ export default function StickyHeadTable() {
           </TableHead>
           <TableBody>
             {funcionarios
-              .map((func) => {
+              .map((func, index) => {
                 return (
-                  <TableRow tabIndex={-1} key={func.id}>
-                    <TableCell key={func.id}>
+                  <TableRow tabIndex={-1} key={func.id} >
+                    <TableCell key={func.id} align="center">
                       {func.id}
                     </TableCell>
-                    <TableCell key={func.id}>
+                    <TableCell key={func.nome} align="center">
                       {func.nome}
                     </TableCell>
-                    <TableCell key={func.id}>
+                    <TableCell key={func.contato.email} align="center">
                       {func.contato.email}
                     </TableCell>
-                    <TableCell key={func.id}>
+                    <TableCell key={func.contato.telefone} align="center">
                       {func.contato.telefone}
                     </TableCell>
-                    <TableCell key={func.id}>
+                    <TableCell key={func.data_nascimento} align="center">
                       {moment(func.data_nascimento).format('DD/MM/YYYY')}
+                    </TableCell>
+                    <TableCell key={`button${func.id}`} align="center">
+                      <IconButton>
+                        <BorderColor color="primary" />
+                      </IconButton>
+                      <IconButton onClick={() => handleDelete(func.id)}>
+                        <DeleteForever color="secondary" />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 );

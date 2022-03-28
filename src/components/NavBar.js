@@ -22,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
 
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+
+  hide: {
+    display: 'none',
+  },
+
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -43,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = (props) => {
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -61,12 +69,13 @@ const NavBar = (props) => {
           [classes.appBarShift]: open,
         })}
       >
-        <Toolbar style={{background: 'black'}}>
+        <Toolbar style={{background: '#000'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerOpen}
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
