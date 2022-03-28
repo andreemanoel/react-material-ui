@@ -12,6 +12,18 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  drawerHeaderIcon: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  drawerHeaderImg: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 200,
+    height: 100,
+  }
 }));
 
 const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
@@ -27,21 +39,26 @@ const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
       }}
     >
       <div className={classes.drawer}>
-        <IconButton onClick={handleDrawerClose}>
-          <ChevronLeftIcon />
-        </IconButton>
-          <Avatar alt="MMTech" src="https://media-exp1.licdn.com/dms/image/C4E0BAQEArA7gfVkTww/company-logo_200_200/0/1637075117552?e=2147483647&v=beta&t=Kl1HU7M8am9_jlKZYJgKxU-u4CwQcE9HEb_tm34RZz4" style={{
-            width: 200,
-            height: 100,
-          }} />
+        <div className={classes.drawerHeaderIcon}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <div className={classes.drawerHeaderImg}>
+          <Avatar 
+            alt="MMTech" 
+            src="https://media-exp1.licdn.com/dms/image/C4E0BAQEArA7gfVkTww/company-logo_200_200/0/1637075117552?e=2147483647&v=beta&t=Kl1HU7M8am9_jlKZYJgKxU-u4CwQcE9HEb_tm34RZz4" 
+            className={classes.logo}
+          />
+        </div>
         <Divider />
-        <ListItem button key="Funcionários" onClick={() => navigation.push('/funcionarios')}>
+        <ListItem button key="Funcionários" onClick={() => {navigation.push('/funcionarios'); window.location.reload();}}>
           <ListItemIcon><Person /></ListItemIcon>
           <ListItemText primary="Funcionários" />
         </ListItem>
         <ListItem button key="Adicionar" onClick={() => navigation.push('/adicionar')}>
           <ListItemIcon><AddBox /></ListItemIcon>
-          <ListItemText primary="Funcionários" />
+          <ListItemText primary="Adicionar" />
         </ListItem>
       </div>
 

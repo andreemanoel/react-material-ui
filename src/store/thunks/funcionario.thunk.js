@@ -20,4 +20,11 @@ export const deleteFunc = createAsyncThunk(
   },
 );
 
+export const enviarFunc = createAsyncThunk(
+  'funcionario/delete',
+  async ({nome, email, telefone, data: data_nascimento}, { dispatch }) => {
+    console.log(nome, email, telefone, data_nascimento);
+    const { data } = await instance.post(`/funcionario`, {nome, email, telefone, data_nascimento, status: true});
+  },
+);
 export default fetchFuncionario;

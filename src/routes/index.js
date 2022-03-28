@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import MDialog from '../components/MDialog';
 import NavBar from '../components/NavBar';
@@ -10,8 +10,8 @@ import fetchFuncionario from '../store/thunks/funcionario.thunk'
 
 const Routes = () => {
   const dispatch = useAppDispatch();
-  
-  React.useEffect(() => {
+
+  useEffect(() => {
     dispatch(fetchFuncionario());
   });
 

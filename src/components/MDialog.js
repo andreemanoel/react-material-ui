@@ -19,6 +19,7 @@ const MDialog = () => {
 
   const handleDelete = () => {
     dispatch(deleteFunc(dialog.id));
+    dispatch(setDialog({visible: false, title: '', id: null}));
     window.location.reload();
   }
 
