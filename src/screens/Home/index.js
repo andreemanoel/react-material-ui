@@ -1,19 +1,44 @@
-import { Paper, Typography } from '@mui/material';
-import React from 'react';
-
+import React from "react";
+import Paper from '@material-ui/core/Paper';
+import {
+  ArgumentAxis,
+  ValueAxis,
+  Chart,
+  BarSeries,
+} from '@devexpress/dx-react-chart-material-ui';
+import { Typography } from "@mui/material";
+  
+  
 const Home = () => {
-  return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', height: '100vh' }} >
-      <Typography
+  
+// Sample data
+const data = [
+  { argument: 'Segunda', value: 30 },
+  { argument: 'Terça', value: 20 },
+  { argument: 'Quarta', value: 10 },
+  { argument: 'Quinta', value: 50 },
+  { argument: 'Sexta', value: 60 },
+];
+return (
+    <Paper>
+      <Typography 
         style={{ fontWeight: 600 }}
         variant="h4"
         align='left'
         sx={{m: 1}}
       >
-        Home
+        Atendimentos
       </Typography>
-    </Paper>
-  )
-}
+      <Chart
+        data={data}
+      >
+        <ArgumentAxis />
+        <ValueAxis />
 
+        <BarSeries valueField="value" argumentField="argument"/>
+      </Chart>
+  </Paper>
+);
+}
+  
 export default Home;
