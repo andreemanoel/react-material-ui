@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { setDialog } from '../../store/slice/application.slice';
 import MTableHeader from '../../components/MTableHeader';
 import MTableBody from '../../components/MTableBody';
@@ -17,13 +17,21 @@ const columns = [
   { id: 'opcoes', label: 'Opções', minWidth: 170, align: 'center' }
 ];
 
-const TableFuncionarios = () => {
+const TableFuncionarios = (props) => {
   const {funcionarios} = useAppSelector(state => state.funcionario);
 
   const dispatch = useAppDispatch();
 
   const handleDelete = (id) => {
     dispatch(setDialog({visible: true, title: 'Deseja realmente excluir?', id:id}));
+  }
+
+  const handleUpdate = (id) => {
+    props.history.push(`/adicionar/${id}`);
+  }
+
+  const handleNovoFunc = () => {
+    props.history.push(`/adicionar`);
   }
 
   return (
@@ -39,9 +47,14 @@ const TableFuncionarios = () => {
       <TableContainer sx={{ maxHeight: 540 }}>
         <Table stickyHeader aria-label="sticky table">
           <MTableHeader columns={columns}/>
-          <MTableBody funcionarios={funcionarios} handleDelete={handleDelete}/>
+          <MTableBody funcionarios={funcionarios} handleDelete={handleDelete} handleUpdate={handleUpdate}/>
         </Table>
       </TableContainer>
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <Button variant="contained" color="primary" sx={{m: 1}} onClick={handleNovoFunc}>
+          Novo funcionário
+        </Button>
+      </div>
     </Paper>
   );
 }

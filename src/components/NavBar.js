@@ -75,7 +75,7 @@ const NavBar = (props) => {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            size='large'
+            size='medium'
             onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, open && classes.hide)}
           >

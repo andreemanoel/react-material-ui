@@ -1,33 +1,42 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Paper, Typography } from '@mui/material';
-import { useAppDispatch } from '../../store/hooks';
-import { enviarFunc } from '../../store/thunks/funcionario.thunk';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { enviarFunc, searchFuncionario, updateFunc } from '../../store/thunks/funcionario.thunk';
 import Alerts from '../../components/Alerts'
+import { setDataNascimento, setEmail, setNome, setTelefone, setReset } from '../../store/slice/funcionario.slice';
 
-const Formulario = () => {
+const Formulario = (props) => {
   const dispatch = useAppDispatch();
 
+  const {getFuncionario} = useAppSelector(state => state.funcionario);
+
+  const [message, setMessage] = useState();
+  const id = props.match.params.id;
+
+  useEffect(() => {
+    if(id){
+      dispatch(searchFuncionario(id));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [erros, setErros] = React.useState({
-    nome: true,
-    email: true,
-    telefone: true,
-    data: true
+    nome: false,
+    email: false,
+    telefone: false,
+    data: false
   });
-  const [nome, setNome] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [telefone, setTelefone] = React.useState('');
-  const [data, setData] = React.useState('');
 
   const [open, setOpen] = React.useState(false);
 
   const verificarErro = () => {
     let flag = false;
-    if(nome === '') {setErros({...erros, nome: true}); flag = true;}
-    if(email === '') {setErros({...erros, email: true}); flag = true;}
-    if(telefone === '') {setErros({...erros, telefone: true}); flag = true;}
-    if(data === '') {setErros({...erros, data: true}); flag = true;}
+    if(getFuncionario.nome === '') {setErros({...erros, nome: true}); flag = true;}
+    if(getFuncionario.contato.email === '') {setErros({...erros, email: true}); flag = true;}
+    if(getFuncionario.contato.telefone === '') {setErros({...erros, telefone: true}); flag = true;}
+    if(getFuncionario.data_nascimento === '') {setErros({...erros, data: true}); flag = true;}
 
     console.log(erros);
     if(flag){
@@ -38,15 +47,31 @@ const Formulario = () => {
   }
   const handleEnviar = () => {
     if(!verificarErro()){
-      dispatch(enviarFunc({nome, email, telefone, data}));
+      if(!getFuncionario.id){
+        dispatch(
+          enviarFunc({
+            nome: getFuncionario.nome, 
+            email: getFuncionario.contato.email, 
+            telefone: getFuncionario.contato.telefone, 
+            data_nascimento: getFuncionario.data_nascimento
+          }));
+          setMessage('Cliente cadastrado com sucesso!');
+      }else {
+        dispatch(
+          updateFunc({
+            id: getFuncionario.id, 
+            nome: getFuncionario.nome, 
+            email: getFuncionario.contato.email, 
+            telefone: getFuncionario.contato.telefone, 
+            data_nascimento: getFuncionario.data_nascimento
+          }));
+          setMessage('Cliente atualizado com sucesso!');
+      }
       setOpen(true);
+      dispatch(setReset());
       setTimeout(() => {
         setOpen(false);
       }, 3000);
-      setNome('');
-      setEmail('');
-      setTelefone('');
-      setData('');
     }
   }
   return (
@@ -57,7 +82,7 @@ const Formulario = () => {
         align='left'
         sx={{m: 1}}
       >
-        Novo funcionário
+        {getFuncionario.id ? 'Editar funcionário' : 'Novo funcionário'}
       </Typography>
       <Box
         component="form"
@@ -69,8 +94,8 @@ const Formulario = () => {
             error={erros.nome}
             id="nome"
             label="Nome"
-            value={nome}
-            onChange={(event) => {setNome(event.target.value); setErros({...erros, nome: false});}}
+            value={getFuncionario.nome}
+            onChange={(event) => {dispatch(setNome(event.target.value)); setErros({...erros, nome: false});}}
             sx={{m: 1}}
             fullWidth
           />
@@ -78,8 +103,8 @@ const Formulario = () => {
             error={erros.email}
             id="email"
             label="Email"
-            value={email}
-            onChange={(event) => {setEmail(event.target.value); setErros({...erros, email: false})}}
+            value={getFuncionario.contato.email}
+            onChange={(event) => {dispatch(setEmail(event.target.value)); setErros({...erros, email: false})}}
             sx={{m: 1}}
             fullWidth
           />
@@ -89,8 +114,8 @@ const Formulario = () => {
             error={erros.telefone}
             id="telefone"
             label="Telefone"
-            value={telefone}
-            onChange={(event) => {setTelefone(event.target.value); setErros({...erros, telefone: false})}}
+            value={getFuncionario.contato.telefone}
+            onChange={(event) => {dispatch(setTelefone(event.target.value)); setErros({...erros, telefone: false})}}
             sx={{m: 1}}
             fullWidth
           />
@@ -99,8 +124,8 @@ const Formulario = () => {
             type="date"
             id="data"
             label="Data Nascimento"
-            value={data}
-            onChange={(event) => {setData(event.target.value); setErros({...erros, data: false})}}
+            value={getFuncionario.data_nascimento}
+            onChange={(event) => {dispatch(setDataNascimento(event.target.value)); setErros({...erros, data: false})}}
             sx={{m: 1}}
             InputLabelProps={{
               shrink: true,
@@ -111,10 +136,10 @@ const Formulario = () => {
       </Box>
       <div style={{display: 'flex', justifyContent: 'flex-end'}}>
         <Button variant="contained" color="primary" sx={{m: 1}} onClick={handleEnviar}>
-          Enviar
+        {`${getFuncionario.id ? 'Atualizar' : 'Cadastrar'}`}
         </Button>
       </div>
-      <Alerts message="Cliente cadastrado com sucesso!" open={open} setOpen={setOpen}/>
+      <Alerts message={message} open={open} setOpen={setOpen}/>
     </Paper>
   );
 }

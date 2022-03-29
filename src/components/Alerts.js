@@ -1,7 +1,7 @@
 import { Alert, AlertTitle, Box, Collapse } from '@mui/material';
 import React from 'react';
 
-const Alerts = ({message, open, setOpen}) => {
+const Alerts = ({message, open}) => {
   return (
     <Box sx={{ width: '100%' }}>
       <Collapse in={open}>

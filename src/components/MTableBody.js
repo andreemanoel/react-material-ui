@@ -3,7 +3,7 @@ import { IconButton, TableBody, TableCell, TableRow } from '@mui/material';
 import moment from 'moment';
 import React from 'react';
 
-const components = ({funcionarios, handleDelete}) => {
+const components = ({funcionarios, handleDelete, handleUpdate}) => {
   return (
   <TableBody>
     {funcionarios
@@ -26,7 +26,7 @@ const components = ({funcionarios, handleDelete}) => {
               {moment(func.data_nascimento).format('DD/MM/YYYY')}
             </TableCell>
             <TableCell key={`button${func.id}`} align="center">
-              <IconButton>
+              <IconButton onClick={() => handleUpdate(func.id)}>
                 <BorderColor color="primary" />
               </IconButton>
               <IconButton onClick={() => handleDelete(func.id)}>

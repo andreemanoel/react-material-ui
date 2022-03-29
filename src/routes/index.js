@@ -22,7 +22,8 @@ const Routes = () => {
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/funcionarios' exact component={Funcionario} />
-            <Route path='/adicionar' component={Formulario} />
+            <Route path='/adicionar' exact component={Formulario} />
+            <Route path='/adicionar/:id' exact component={Formulario} />
           </Switch>
         </NavBar>
       </Router >
