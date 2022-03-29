@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  loading: false,
   funcionarios: [],
   getFuncionario: {
     id: '',
@@ -17,6 +18,9 @@ export const funcionario = createSlice({
   name: 'funcionario',
   initialState,
   reducers: {
+    setLoading(state, {payload}){
+      state.loading = payload;
+    },
     setFuncionarios(state, {payload}){
       state.funcionarios = payload;
     },
@@ -45,6 +49,7 @@ export const funcionario = createSlice({
 });
 
 export const {
+  setLoading,
   setFuncionarios, 
   setGetFuncionario, 
   setId, 

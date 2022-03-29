@@ -52,11 +52,11 @@ const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
           />
         </div>
         <Divider />
-        <ListItem button key="Funcionários" onClick={() => navigation.push('/')}>
+        <ListItem button key="Home" onClick={() => navigation.push('/')}>
           <ListItemIcon><Home /></ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button key="Funcionários" onClick={() => {navigation.push('/funcionarios'); window.location.reload();}}>
+        <ListItem button key="Funcionários" onClick={() => navigation.push('/funcionarios')}>
           <ListItemIcon><Person /></ListItemIcon>
           <ListItemText primary="Funcionários" />
         </ListItem>

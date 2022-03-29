@@ -6,6 +6,22 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { enviarFunc, searchFuncionario, updateFunc } from '../../store/thunks/funcionario.thunk';
 import Alerts from '../../components/Alerts'
 import { setDataNascimento, setEmail, setNome, setTelefone, setReset } from '../../store/slice/funcionario.slice';
+import { IMaskInput } from 'react-imask';
+
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { onChange, ...other } = props;
+  return (
+    <IMaskInput
+      {...other}
+      mask="(00) 00000-0000"
+      definitions={{
+        '#': /[1-9]/,
+      }}
+      inputRef={ref}
+      onAccept={(value) => onChange({ target: { value } })}
+    />
+  );
+});
 
 const Formulario = (props) => {
   const dispatch = useAppDispatch();
@@ -45,6 +61,7 @@ const Formulario = (props) => {
       return false;
     }
   }
+
   const handleEnviar = () => {
     if(!verificarErro()){
       if(!getFuncionario.id){
@@ -74,6 +91,12 @@ const Formulario = (props) => {
       }, 3000);
     }
   }
+
+  const handleChange = (event) => {
+    dispatch(setTelefone(event.target.value)); 
+    setErros({...erros, telefone: false});
+  }
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }} >
       <Typography
@@ -114,10 +137,14 @@ const Formulario = (props) => {
             error={erros.telefone}
             id="telefone"
             label="Telefone"
+            name="telefone"
             value={getFuncionario.contato.telefone}
-            onChange={(event) => {dispatch(setTelefone(event.target.value)); setErros({...erros, telefone: false})}}
+            onChange={handleChange}
             sx={{m: 1}}
             fullWidth
+            InputProps={{
+              inputComponent: TextMaskCustom
+            }}
           />
           <TextField
             error={erros.data}

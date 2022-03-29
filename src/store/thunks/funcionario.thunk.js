@@ -13,6 +13,7 @@ const fetchFuncionario = createAsyncThunk(
         setFuncionarios(data),
       );
     }
+    return;
   },
 );
 

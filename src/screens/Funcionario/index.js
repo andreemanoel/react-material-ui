@@ -7,6 +7,7 @@ import { Button, Typography } from '@mui/material';
 import { setDialog } from '../../store/slice/application.slice';
 import MTableHeader from '../../components/MTableHeader';
 import MTableBody from '../../components/MTableBody';
+import fetchFuncionario from '../../store/thunks/funcionario.thunk';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170, align: 'center' },
@@ -18,9 +19,9 @@ const columns = [
 ];
 
 const TableFuncionarios = (props) => {
-  const {funcionarios} = useAppSelector(state => state.funcionario);
-
   const dispatch = useAppDispatch();
+
+  const {funcionarios} = useAppSelector(state => state.funcionario);
 
   const handleDelete = (id) => {
     dispatch(setDialog({visible: true, title: 'Deseja realmente excluir?', id:id}));
@@ -33,6 +34,11 @@ const TableFuncionarios = (props) => {
   const handleNovoFunc = () => {
     props.history.push(`/adicionar`);
   }
+
+  React.useEffect(() => {
+    dispatch(fetchFuncionario());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
