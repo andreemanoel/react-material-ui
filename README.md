@@ -1,4 +1,4 @@
-# Iniciar projeto Nodejs
+# Iniciar projeto Reactjs
 
 Esse projeto foi desenvolvido com React com auxilio da lib Material UI.
 
