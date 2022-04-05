@@ -82,7 +82,7 @@ const NavBar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MMTech
+            Sistema Ifood
           </Typography>
           <Button color="inherit" >Sair</Button>
         </Toolbar>

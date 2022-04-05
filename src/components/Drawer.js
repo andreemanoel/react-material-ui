@@ -47,7 +47,7 @@ const DrawerNavigation = ({open, handleDrawerClose, navigation}) => {
         <div className={classes.drawerHeaderImg}>
           <Avatar 
             alt="MMTech" 
-            src="https://media-exp1.licdn.com/dms/image/C4E0BAQEArA7gfVkTww/company-logo_200_200/0/1637075117552?e=2147483647&v=beta&t=Kl1HU7M8am9_jlKZYJgKxU-u4CwQcE9HEb_tm34RZz4" 
+            src="https://www.futuraexpress.com.br/blog/wp-content/uploads/2020/03/Exemplo-de-Logotipo-7.jpg" 
             className={classes.logo}
           />
         </div>
