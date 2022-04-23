@@ -7,6 +7,7 @@ import { enviarFunc, searchFuncionario, updateFunc } from '../../store/thunks/fu
 import Alerts from '../../components/Alerts'
 import { setDataNascimento, setEmail, setNome, setTelefone, setReset } from '../../store/slice/funcionario.slice';
 import { IMaskInput } from 'react-imask';
+import { useParams } from 'react-router-dom';
 
 const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   const { onChange, ...other } = props;
@@ -29,7 +30,7 @@ const Formulario = (props) => {
   const {getFuncionario} = useAppSelector(state => state.funcionario);
 
   const [message, setMessage] = useState();
-  const id = props.match.params.id;
+  const {id} = useParams();
 
   useEffect(() => {
     if(id){

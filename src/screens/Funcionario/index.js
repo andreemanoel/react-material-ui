@@ -8,6 +8,7 @@ import { setDialog } from '../../store/slice/application.slice';
 import MTableHeader from '../../components/MTableHeader';
 import MTableBody from '../../components/MTableBody';
 import fetchFuncionario from '../../store/thunks/funcionario.thunk';
+import { useHistory } from 'react-router-dom';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170, align: 'center' },
@@ -21,6 +22,8 @@ const columns = [
 const TableFuncionarios = (props) => {
   const dispatch = useAppDispatch();
 
+  const history = useHistory();
+
   const {funcionarios} = useAppSelector(state => state.funcionario);
 
   const handleDelete = (id) => {
@@ -28,11 +31,11 @@ const TableFuncionarios = (props) => {
   }
 
   const handleUpdate = (id) => {
-    props.history.push(`/adicionar/${id}`);
+    history.push(`/adicionar/${id}`);
   }
 
   const handleNovoFunc = () => {
-    props.history.push(`/adicionar`);
+    history.push(`/adicionar`);
   }
 
   React.useEffect(() => {

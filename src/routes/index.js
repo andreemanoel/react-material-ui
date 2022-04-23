@@ -5,20 +5,24 @@ import NavBar from '../components/NavBar';
 import Formulario from '../screens/Formulario';
 import Funcionario from '../screens/Funcionario';
 import Home from '../screens/Home';
+import Login from '../screens/Login';
+import { isAuthenticated } from '../services/auth';
+import RoutesPrivate from './routesPrivate';
 
 const Routes = () => {
-  
   return (
     <>
       <Router >
-        <NavBar>
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/funcionarios' exact component={Funcionario} />
-            <Route path='/adicionar' exact component={Formulario} />
-            <Route path='/adicionar/:id' exact component={Formulario} />
-          </Switch>
-        </NavBar>
+        <Switch>
+          {!isAuthenticated() && 
+            <Route path='/login' exact component={Login} />}
+            <NavBar>
+                <RoutesPrivate path='/' exact component={Home} />
+                <RoutesPrivate path='/funcionarios' exact component={Funcionario} />
+                <RoutesPrivate path='/adicionar' exact component={Formulario} />
+                <RoutesPrivate path='/adicionar/:id' exact component={Formulario} />
+            </NavBar>
+        </Switch>
       </Router >
       <MDialog />
     </>
