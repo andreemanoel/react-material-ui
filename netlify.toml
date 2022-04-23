@@ -2,3 +2,4 @@
 base = "."
 command = "CI= npm run build"
 publish = "./build/"
+* index.html 200
